@@ -12,6 +12,7 @@
                  ;; :java-package-name "some.namespace.here" ;; users to implement in project.clj
                  ;; :extra-options [] ;; in case one of the weird options I don't use is specified, they can just
                                       ;; put in their array list of options ["-s" "something" "-b" "b-stuff", etc.]
+                 ;; :wsdl-file-list [] ;; I won't supply defaults, but I know i'll expect some
                  })) 
 (def default-opts (atom ["-Xnocompile" "-d" "target/generated/java"]))
 (defn compose-options-array
