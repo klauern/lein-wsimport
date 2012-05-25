@@ -6,6 +6,12 @@
 (def opts (atom {:compile-java-sources false
                  :java-output-directory "target/generated/java"
                  :keep-java-sources true
+                 :quiet-output false
+                 ;; :class-output-directory nil ;; I don't want to compile it, but they might.  leaving for docs later
+                 ;; :jaxb-binding-files [ "path" "path1" "path2" ] ;; users to implement in project.clj
+                 ;; :java-package-name "some.namespace.here" ;; users to implement in project.clj
+                 ;; :extra-options [] ;; in case one of the weird options I don't use is specified, they can just
+                                      ;; put in their array list of options ["-s" "something" "-b" "b-stuff", etc.]
                  })) 
 (def default-opts (atom ["-Xnocompile" "-d" "target/generated/java"]))
 (defn compose-options-array
@@ -13,22 +19,22 @@
    using both the project options (if specified), or just the argument
    listing" 
   ([project]
-    "If no options have been passed in yet"
-    (let [array []]
+    (let [ws-ary   [] 
+          all-opts (conj opts (:wsimport project))]
       (do
-        (if-not (:compile-java-sources opts) (conj array "-Xnocompile"))
-        (if-let [out-dir (-> project :wsimport :java-output-directory)]
-          (conj array "-s" out-dir)
-          (conj array "-s" (:java-output-directory opts)))
-        (if-let [keep (-> project :wsimport :keep-java-sources)]
-          (if keep
-            (conj array "-keep"))
-          (if (:keep-java-sources opts)
-            (conj array "-keep")))
-        ))
-    )
-  ([project & args]
-    "I do nothing yet")) 
+        (if-not (:compile-java-sources all-opts) 
+          (conj ws-ary "-Xnocompile"))
+        (if-let [out-dir (:java-output-directory all-opts)]
+          (conj ws-ary "-s" out-dir))
+        (if (:keep-java-sources all-opts)
+          (conj ws-ary "-keep"))
+        (if-let [pkg (:java-package all-opts)]
+          (conj ws-ary "-p" pkg))
+        (if (:quiet-output all-opts)
+          (conj ws-ary "-quiet"))
+        (if-let [xtra-opts (:extra-options all-opts)]
+          (conj ws-ary xtra-opts)))))
+  ([project & args]))
 
 (defn wsimport
   "I don't do a lot."
