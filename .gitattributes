@@ -1,4 +1,4 @@
-*.doc  diff=astextplain
+﻿*.doc  diff=astextplain
 *.DOC	diff=astextplain
 *.docx	diff=astextplain
 *.DOCX	diff=astextplain
@@ -41,6 +41,7 @@
 *.fs text=auto
 *.fsx text=auto
 *.hs text=auto
+*.clj text=auto
 
 *.csproj text=auto merge=union 
 *.vbproj text=auto merge=union 
