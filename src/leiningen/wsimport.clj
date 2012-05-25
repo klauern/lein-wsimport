@@ -18,7 +18,7 @@
   "Create the options array to pass to make the wsimport call,
    using both the project options (if specified), or just the argument
    listing" 
-  ([project]
+  ([project]  ;; pull out to use just a map and not the project {} (in case this gets broken down to multiple sets of opts)
     (let [ws-ary   [] 
           all-opts (conj opts (:wsimport project))]
       (do
