@@ -11,10 +11,17 @@
    using both the project options (if specified), or just the argument
    listing" 
   ([project]
-    
+    "If no options have been passed in yet"
+    (let [array []]
+      (do
+        (if-not (:compile-java-sources opts) (conj array "-Xnocompile"))
+        (if-let [out-dir (-> project :wsimport :output-directory)]
+          (conj array "-d" out-dir)
+          (conj array "-d" (:output-directory opts)))
+        ))
     )
   ([project & args]
-    )) 
+    "I do nothing yet")) 
 
 (defn wsimport
   "I don't do a lot."
