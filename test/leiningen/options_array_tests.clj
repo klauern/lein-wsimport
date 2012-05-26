@@ -4,7 +4,7 @@
 
 (fact "excluding options"
       (compose-options-array {:compile-java-sources true}) => ["-s" "target/generated/java"
-                                                               "-keep" "-quiet"])
+                                                               "-keep"])
 
 (fact "default options are"
       (@opts :compile-java-sources) => false
@@ -16,4 +16,4 @@
 
 (fact "default options array is"
       (compose-options-array {}) => ["-Xnocompile" "-s" "target/generated/java"
-                                     "-keep" "-quiet"])
+                                     "-keep"])
