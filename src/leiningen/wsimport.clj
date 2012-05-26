@@ -17,8 +17,8 @@
 
 (def default-opts (atom ["-Xnocompile" "-d" "target/generated/java"]))
 (defn compose-options-array
-  "Create the options array to pass to make the wsimport call
-   using both the project options and the default options" 
+  "Create an array of options to pass in to WsImport#doMain out of
+   a map of settings (usually gathered from the project settings)" 
   [wsimport-opts]  
     (let [ws-ary   (transient [])
           all-opts (conj @opts wsimport-opts)]
