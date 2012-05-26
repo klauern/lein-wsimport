@@ -2,15 +2,9 @@
   (:use midje.sweet)
   (:use leiningen.wsimport))
 
-(fact "parsing options"
+(fact "excluding options"
       (compose-options-array {:compile-java-sources true}) => ["-s" "target/generated/java"
                                                                "-keep" "-quiet"])
-
-(fact "excluding options"
-      )
-
-(fact "overriding options"
-      )
 
 (fact "default options are"
       (@opts :compile-java-sources) => false
