@@ -2,9 +2,13 @@
   (:use midje.sweet)
   (:use leiningen.wsimport))
 
-(fact "excluding options"
-      (compose-options-array {:compile-java-sources true}) => ["-s" "target/generated/java"
-                                                               "-keep"])
+(fact "adding one option"
+      (compose-options-array {:compile-java-sources true}) => ["-s" "target/generated/java" "-keep"]
+      (compose-options-array {:java-output-directory "oput"}) => ["-Xnocompile" "-s" "oput" "-keep"]
+      (compose-options-array {:quiet-output true}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "-quiet"]
+      (compose-options-array {:wsdl-file "Sample.wsdl"}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "Sample.wsdl"]
+      (compose-options-array {:extra-options ["some" "opts" "here"]}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "some" "opts" "here"]
+      (compose-options-array {:keep-java-sources false}) => ["-Xnocompile" "-s" "target/generated/java"])
 
 (fact "default options are"
       (@opts :compile-java-sources) => false

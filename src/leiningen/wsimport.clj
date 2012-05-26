@@ -20,23 +20,25 @@
   "Create an array of options to pass in to WsImport#doMain out of
    a map of settings (usually gathered from the project settings)" 
   [wsimport-opts]  
-    (let [ws-ary   (transient [])
-          all-opts (conj @opts wsimport-opts)]
-      (if-not (:compile-java-sources all-opts) 
-        (conj! ws-ary "-Xnocompile"))
-      (if-let [out-dir (:java-output-directory all-opts)]
-        (do 
-          (conj! ws-ary "-s")
-          (conj! ws-ary out-dir)))
-      (if (:keep-java-sources all-opts)
-        (conj! ws-ary "-keep"))
-      (if-let [pkg (:java-package-name all-opts)]
-        (conj! ws-ary "-p" pkg))
-      (if (:quiet-output all-opts)
-        (conj! ws-ary "-quiet"))
-      (if-let [xtra-opts (:extra-options all-opts)]
-        (conj! ws-ary xtra-opts))
-      (persistent! ws-ary)))
+  (let [ws-ary   (transient [])
+        all-opts (conj @opts wsimport-opts)]
+    (if-not (:compile-java-sources all-opts) 
+      (conj! ws-ary "-Xnocompile"))
+    (if-let [out-dir (:java-output-directory all-opts)]
+      (do 
+        (conj! ws-ary "-s")
+        (conj! ws-ary out-dir)))
+    (if (:keep-java-sources all-opts)
+      (conj! ws-ary "-keep"))
+    (if-let [pkg (:java-package-name all-opts)]
+      (conj! ws-ary "-p" pkg))
+    (if (:quiet-output all-opts)
+      (conj! ws-ary "-quiet"))
+    (if-let [xtra-opts (:extra-options all-opts)]
+      (conj! ws-ary xtra-opts))
+    (if-let [wsdl (:wsdl-file all-opts)]
+      (conj! ws-ary wsdl))
+    (persistent! ws-ary)))
 
 (defn wsimport
   "I don't do a lot."
