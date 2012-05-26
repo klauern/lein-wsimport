@@ -19,22 +19,22 @@
 (defn compose-options-array
   "Create the options array to pass to make the wsimport call
    using both the project options and the default options" 
-  ([project]  ;; pull out to use just a map and not the project {} (in case this gets broken down to multiple sets of opts)
+  [wsimport-opts]  
     (let [ws-ary   [] 
-          all-opts (conj opts (:wsimport project))]
+          all-opts (conj @opts wsimport-opts)]
       (if-not (:compile-java-sources all-opts) 
         (conj ws-ary "-Xnocompile"))
       (if-let [out-dir (:java-output-directory all-opts)]
         (conj ws-ary "-s" out-dir))
       (if (:keep-java-sources all-opts)
         (conj ws-ary "-keep"))
-      (if-let [pkg (:java-package all-opts)]
+      (if-let [pkg (:java-package-name all-opts)]
         (conj ws-ary "-p" pkg))
       (if (:quiet-output all-opts)
         (conj ws-ary "-quiet"))
       (if-let [xtra-opts (:extra-options all-opts)]
         (conj ws-ary xtra-opts))
-      ws-ary)))
+      ws-ary))
 
 (defn wsimport
   "I don't do a lot."
