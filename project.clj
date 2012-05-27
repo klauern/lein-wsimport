@@ -9,4 +9,5 @@
   :java-source-paths ["target/generated/java"] ; Java source is stored separately
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :wsimport { :wsdl-list ["EDataFeed.wsdl"] }
   :eval-in-leiningen true)
