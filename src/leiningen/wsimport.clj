@@ -42,11 +42,19 @@
 (defn import-wsdls
   "Call WsImport from Sun's JDK using an array of WSDL's to import
    and a set of default options"
-  [wsdl-list wsdl-options]
-  (loop [wsdl (first wsdl-list)
-           other-wsdls (rest wsdl-list)]
-      (WsImport/doMain (into-array (compose-options-array wsdl wsdl-options)))
-      (recur (first other-wsdls) (rest other-wsdls))))
+  [wsdl-list wsdl-options
+   f (clojure.java.io/file (:java-output-directory wsdl-options))]
+  (if-not (.exists f)
+    (.mkdirs f))
+  (map #((WsImport/doMain 
+           (into-array 
+             (compose-options-array % wsdl-options))))
+       wsdl-list)
+  ;;(loop [wsdl (first wsdl-list)
+  ;;         other-wsdls (rest wsdl-list)]
+  ;;    (WsImport/doMain (into-array (compose-options-array wsdl wsdl-options)))
+  ;;    (recur (first other-wsdls) (rest other-wsdls))))
+  )
 
 (defn wsimport
   "Generate SOAP Java classes using the JDK's wsimport task"
