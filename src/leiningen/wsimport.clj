@@ -20,12 +20,12 @@
   "Create an array of options to pass in to WsImport#doMain out of
    a map of settings (usually gathered from the project settings)" 
   [wsdl-file wsimport-opts]
-  (let [ws-ary   (transient [])
-        all-opts (conj @opts wsimport-opts)]
+  (let [ws-ary   (transient [])    ;; this feels wrong
+        all-opts (conj @opts wsimport-opts)]   
     (if-not (:compile-java-sources all-opts) 
       (conj! ws-ary "-Xnocompile"))
     (if-let [out-dir (:java-output-directory all-opts)]
-      (do 
+      (do   ;; this feels wrong too, because conj! won't take more than one piece to append to.
         (conj! ws-ary "-s")
         (conj! ws-ary out-dir)))
     (if (:keep-java-sources all-opts)
@@ -42,7 +42,7 @@
     ;; so I'm confused how to just plop a couple options of mutliple
     ;; "-b" "filename" on to it.
     (conj! ws-ary wsdl-file)
-    (persistent! ws-ary)))
+    (persistent! ws-ary)))  ;; this seems like a confession washing away sins...   
 
 (defn import-wsdls
   "Call WsImport from Sun's JDK using an array of WSDL's to import
@@ -54,17 +54,19 @@
   (map #((WsImport/doMain 
            (into-array 
              (compose-options-array % wsdl-options))))
-       wsdl-list)
-  ;;(loop [wsdl (first wsdl-list)
-  ;;         other-wsdls (rest wsdl-list)]
-  ;;    (WsImport/doMain (into-array (compose-options-array wsdl wsdl-options)))
-  ;;    (recur (first other-wsdls) (rest other-wsdls))))
-  )
+       wsdl-list))
+
+(defn process-cmdline-args
+  "Create an options array out of command-line
+   arguments passed in, utilizing the default
+   options when necessary"
+  [args]
+  (throw "not done, don't use?"))
+
 
 (defn wsimport
   "Generate SOAP Java classes using the JDK's wsimport task"
   ([project]
-    ;; ??  learn the project arguments for this, figure out what needs to be gotten
     (import-wsdls (-> project :wsimport :wsdl-list) (project :wsimport)))
   ([project & args]
     ;; process command-line options... (compile directly?)
