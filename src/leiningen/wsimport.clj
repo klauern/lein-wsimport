@@ -42,10 +42,10 @@
 (defn import-wsdls
   "Call WsImport from Sun's JDK using an array of WSDL's to import
    and a set of default options"
-  [wsdl-list wsdl-options
-   f (clojure.java.io/file (:java-output-directory wsdl-options))]
-  (if-not (.exists f)
-    (.mkdirs f))
+  [wsdl-list wsdl-options]
+  (let [f (clojure.java.io/file (:java-output-directory wsdl-options))] 
+    (if-not (.exists f)
+      (.mkdirs f)))
   (map #((WsImport/doMain 
            (into-array 
              (compose-options-array % wsdl-options))))
