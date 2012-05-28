@@ -7,7 +7,13 @@
       (compose-options-array "Sample.wsdl" {:java-output-directory "oput"}) => ["-Xnocompile" "-s" "oput" "-keep" "Sample.wsdl"]
       (compose-options-array "Sample.wsdl" {:quiet-output true}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "-quiet" "Sample.wsdl"]
       (compose-options-array "Sample.wsdl" {:extra-options ["some" "opts" "here"]}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "some" "opts" "here" "Sample.wsdl"]
-      (compose-options-array "Sample.wsdl" {:keep-java-sources false}) => ["-Xnocompile" "-s" "target/generated/java" "Sample.wsdl"])
+      (compose-options-array "Sample.wsdl" {:keep-java-sources false}) => ["-Xnocompile" "-s" "target/generated/java" "Sample.wsdl"]
+      )
+
+(facts "about JAXB binding files"
+       (compose-options-array "Sample.wsdl" {:jaxb-binding-files "binding.xsd"}) => ["-Xnocompile" "-s" "target/generated/java" "-b" "binding.xsd" "Sample.wsdl"]
+       (compose-options-array "Sample.wsdl" {:jaxb-binding-files ["one.xsd" "two.xsd"]}) => ["-Xnocompile" "-s" "target/generated/java" "-b" "one.xsd" "-b" "two.xsd" "Sample.wsdl"]
+       )
 
 (facts "about default options"
       (@opts :compile-java-sources) => false
