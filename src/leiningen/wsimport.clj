@@ -25,9 +25,8 @@
     (if-not (:compile-java-sources all-opts) 
       (conj! ws-ary "-Xnocompile"))
     (if-let [out-dir (:java-output-directory all-opts)]
-      (do   ;; this feels wrong too, because conj! won't take more than one piece to append to.
-        (conj! ws-ary "-s")
-        (conj! ws-ary out-dir)))
+      (doseq [val ["-s" out-dir]]
+        (conj! ws-ary val)))
     (if (:keep-java-sources all-opts)
       (conj! ws-ary "-keep"))
     (if-let [pkg (:java-package-name all-opts)]
