@@ -11,8 +11,8 @@
       )
 
 (facts "about JAXB binding files"
-       (compose-options-array "Sample.wsdl" {:jaxb-binding-files "binding.xsd"}) => ["-Xnocompile" "-s" "target/generated/java" "-b" "binding.xsd" "Sample.wsdl"]
-       (compose-options-array "Sample.wsdl" {:jaxb-binding-files ["one.xsd" "two.xsd"]}) => ["-Xnocompile" "-s" "target/generated/java" "-b" "one.xsd" "-b" "two.xsd" "Sample.wsdl"]
+       (compose-options-array "Sample.wsdl" {:jaxb-binding-files ["binding.xsd"]}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "-b" "binding.xsd" "Sample.wsdl"]
+       (compose-options-array "Sample.wsdl" {:jaxb-binding-files ["one.xsd" "two.xsd"]}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "-b" "one.xsd" "-b" "two.xsd" "Sample.wsdl"]
        )
 
 (facts "about default options"

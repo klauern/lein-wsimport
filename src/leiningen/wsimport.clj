@@ -35,11 +35,10 @@
       (conj! ws-ary "-quiet"))
     (if-let [xtra-opts (:extra-options all-opts)]
        (reduce conj! ws-ary xtra-opts))
-    ;; don't know how to do the :jaxb-binding-files.
-    ;; needs to add ["-b" "binding-file...." ...] for 
-    ;; all binding files, but conj! only takes a coll and a field,
-    ;; so I'm confused how to just plop a couple options of mutliple
-    ;; "-b" "filename" on to it.
+    (if-let [jaxb-binding-files (:jaxb-binding-files all-opts)]
+      (doseq [jbinding jaxb-binding-files]  ;; seems kind of ugly, not sure this is a great solution
+        (conj! ws-ary "-b")
+        (conj! ws-ary jbinding)))
     (conj! ws-ary wsdl-file)
     (persistent! ws-ary)))  ;; this seems like a confession washing away sins...   
 
