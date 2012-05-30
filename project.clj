@@ -3,11 +3,10 @@
   :url ""
   :dependencies [[com.sun.xml.ws/jaxws-tools "2.2.7-promoted-b73"]]
   :profiles { :dev { :dependencies [[midje "1.4.0"]
-                                    ;; [lein-lazytest "1.0.3"]
-                                    ;;[com.stuartsierra/lazytest "2.0.0-SNAPSHOT"]
                                     ]}}
   :java-source-paths ["target/generated/java"] ; Java source is stored separately
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :wsimport { :wsdl-list ["EDataFeed.wsdl"] }
+  :wsimport { :wsdl-list ["test/resources/ec2.wsdl"] 
+              :extra-options ["-extension"] }
   :eval-in-leiningen true)
