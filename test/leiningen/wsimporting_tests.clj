@@ -11,12 +11,7 @@
 (def mturk-wsdl "http://mechanicalturk.amazonaws.com/AWSMechanicalTurk/2012-03-25/AWSMechanicalTurkRequester.wsdl")
 (def sqs-wsdl "http://queue.amazonaws.com/doc/2011-10-01/QueueService.wsdl")
 
-
-
 (def ebay-finding-svc "http://developer.ebay.com/webservices/finding/latest/FindingService.wsdl")
 (def ebay-trading-svc "http://developer.ebay.com/webservices/latest/ebaySvc.wsdl")
 
 (def ms-search-wsdl "http://api.search.live.net/search.wsdl")
-
-;; (fact "testing import of Amazon EC2 WSDL service"
-;;      (fail "Not gonna work on it yet."))
