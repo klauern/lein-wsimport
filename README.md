@@ -3,16 +3,11 @@
 A Leiningen plugin to utilize the JDK's [`wsimport`](http://docs.oracle.com/javase/6/docs/technotes/tools/share/wsimport.html) task from a Leiningen project.
 
 ## Why?
-So the question I had when I was writing this might be the same one you have.  Why?  What does this give you?
+Simply put, this is a thin wrapper around the `wsimport` command-line tool provided by Oracle's JDK.  This is polish for your Leiningen project in case you want to save typing `wsimport -some -options, etc.` multiple times for each .WSDL.  
 
-Simply put, this is a thin wrapper around the `wsimport` command-line tool provided by your JDK tooling.  There is fundamentally nothing this plugin will give you that whittling out your own `wsimport -command -line -opts wsdl-file-here.wsdl` won't.  For me, it serves two purposes:
-
-1. I am new to Clojure and wanted to create something marginally useful
-2. I want my project to wrap my web service creation.
-
+I created this because I am new to Clojure and want to learn/contribute at the same time. 
 
 ## Usage
-
 Currently, this plugin only works against your `project.clj` configuration settings, so if you haven't already, add this to you're `:plugins` vector of your project.clj:
 
 ```clj
@@ -32,7 +27,7 @@ WsImport is a task that generates .java and java .class files from a SOAP `wsdl`
 :java-source-paths [ "target/generated/java" ] ;; by default, WSDL sources are generated here
 ```
 
-To get this to do something with your wsdls, you will have to configure in your `project.clj` a `:wsimport` map.  A sample is provided below (with all the options):
+To get this to do something with your wsdls, you will have to configure in your `project.clj` a `:wsimport` map.  A sample is provided below (with all the available options):
 
 ```clj          
 :wsimport { :wsdl-list [ "Sample.wsdl" "ec2.wsdl" … ]
@@ -46,17 +41,23 @@ To get this to do something with your wsdls, you will have to configure in your 
           }
 ```
 
+Minimally, all you would have to do if you have vanilla WSDLs that you'd like to codegen for (vanilla, error-free SOAP, lol) is specify `:wsdl-list`:
+
+```clj
+:wsimport { :wsdl-list ["List.wsdl" "of.wsdl" "wsdls.wsl"] }
+```
+
 Then, from the command-line, just call `lein wsimport` to get your sources generated and/or compiled.
 
 
 ### Limitation: no separation of project configs per profile
-I can see cases where you would have a couple `.wsdl` files you want to bring in that each will require separate options.  I don't have anything in place to handle that (yet).  As is the open-source way, patches are welcome.
+I have not written any handling of profiles and handling multiple and possibly competing WSDL options.  I know there might be cases where you would have a couple `.wsdl` files you want to bring in that each will require separate options.  I don't have anything in place to handle that (yet).  As is the open-source way, patches are welcome.
 
-## I don't want to talk Clojure to Java, give me something better!
+## Alternatives
 
-Okay.  There's only one alternative that I know of, [clj-soap](https://bitbucket.org/taka2ru/clj-soap).  It uses Axis2 under the covers, and if you're a fan of that framework (I'm not) it's a good option.  I would love to see this project used with [Apache CXF](http://cxf.apache.org) instead, but there aren't a whole lot of alternatives out in the SOAP space.  This is both good and bad:  
+There's only one alternative that I know of, [clj-soap](https://bitbucket.org/taka2ru/clj-soap).  It uses Axis2 under the covers, and if you're a fan of that framework (I'm not) it's a good option.  I would love to see this project used with [Apache CXF](http://cxf.apache.org) instead, but there aren't a whole lot of alternatives out in the SOAP space.  This is both good and bad:  
 
-  - bad -- not a lot of variety or options in Clojure; 
+  - bad -- not a lot of variety or options in Clojure for enterprisey things (SOAP is far from dead in the enterprise, like COBOL); 
   - good -- we all hope SOAP is dying a slow painful death for which new languages decide not to waste alot of time developing against.
 
   I hope for the latter, honestly, but this plugin wouldn't exist if I didn't need to work with SOAP or expected others to have to wade through legacy APIs.

@@ -1,4 +1,5 @@
 (ns leiningen.wsimport
+  "wsimport plugin task definition"
   (:require [clojure.java.io :as io]) 
   (:import (com.sun.tools.ws WsImport)))
 
@@ -6,6 +7,12 @@
                  :java-output-directory "target/generated/java"
                  :keep-java-sources true
                  :quiet-output false}))
+
+;; This is the meat of the plugin.  WsImport#doMain only takes two sets of parameters:
+;; - a String for the WSDL URI to import
+;; - an array of String arguments to pass, configuring the generation strategy.
+;; To see what all of the possible options, as long as you have a JDK installed and
+;; in your path, type `wsimport` and read the verbose output.
 
 (defn compose-options-array
   "Create an array of options to pass in to WsImport#doMain out of
@@ -34,8 +41,8 @@
     (persistent! ws-ary)))  ;; this seems like a confession washing away sins...   
 
 (defn import-wsdls
-  "Call WsImport from Sun's JDK using an array of WSDL's to import
-   and a set of default options"
+  "Call WsImport#doMain from Sun's JDK using an array of WSDL's to import
+   and a set of user and default-specified options"
   [wsdl-list wsdl-options]
   (let [all-opts (conj @opts wsdl-options)
         f (clojure.java.io/file (all-opts :java-output-directory))]
@@ -47,6 +54,6 @@
              (compose-options-array wsdl wsdl-options)))))
 
 (defn wsimport
-  "Generate SOAP Java classes using the JDK's wsimport task"
+  "Generate Java code from SOAP .wsdls using the JDK's wsimport task"
   ([project]
     (import-wsdls (-> project :wsimport :wsdl-list) (project :wsimport))))
