@@ -42,7 +42,8 @@ To get this to do something with your wsdls, you will have to configure in your 
             :java-package-name "com.corporate.prefix.package"
             :quiet-output true ;; don't show the entirety of the output from Sun's WsImport task
             :jaxb-binding-files [ "binding1" "binding2" ]
-            :extra-options ["-extension" "-catalog" ] ;; takes pretty much anything that you'd call from the command-line. call `wsimport` to see what's available          
+            :extra-options ["-extension" "-catalog" ] ;; takes pretty much anything that you'd call from the command-line. call `wsimport` to see what's available
+          }
 ```
 
 Then, from the command-line, just call `lein wsimport` to get your sources generated and/or compiled.
