@@ -15,22 +15,31 @@ Simply put, this is a thin wrapper around the `wsimport` command-line tool provi
 
 Currently, this plugin only works against your `project.clj` configuration settings, so if you haven't already, add this to you're `:plugins` vector of your project.clj:
 
+```clj
+
     [lein-wsimport "1.0.0-SNAPSHOT"]
+
+```
 
 Running this plugin from the command-line is simple enough:
 
     $ lein wsimport
 
+
 ## Configuration
 
 WsImport is a task that generates .java and java .class files from a SOAP `wsdl` file, so you need to specify that your project will be using java sources:
 
-    :java-source-paths [ "target/generated/java" ] ;; by default, WSDL sources are generated here
-
-To get this to do something with your wsdls, you will have to configure in your `project.clj` a `:wsimport` vector.  A sample vector is provided below (with all the options):
-
 ```clj
 
+    :java-source-paths [ "target/generated/java" ] ;; by default, WSDL sources are generated here
+
+```
+
+To get this to do something with your wsdls, you will have to configure in your `project.clj` a `:wsimport` map.  A sample is provided below (with all the options):
+
+```clj
+                
     :wsimport { :wsdl-list [ "Sample.wsdl" "ec2.wsdl" … ]
                 :compile-java-sources true ;; or false (by default)
                 :java-output-directory "target/generated/java" ;; by default
@@ -39,7 +48,7 @@ To get this to do something with your wsdls, you will have to configure in your 
                 :quiet-output true ;; don't show the entirety of the output from Sun's WsImport task
                 :jaxb-binding-files [ "binding1" "binding2" ]
                 :extra-options ["-extension" "-catalog" ] ;; takes pretty much anything that you'd call from the command-line. call `wsimport` to see what's available
-
+                
 ```
 
 Then, from the command-line, just call `lein wsimport` to get your sources generated and/or compiled.
