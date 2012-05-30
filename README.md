@@ -16,9 +16,7 @@ Simply put, this is a thin wrapper around the `wsimport` command-line tool provi
 Currently, this plugin only works against your `project.clj` configuration settings, so if you haven't already, add this to you're `:plugins` vector of your project.clj:
 
 ```clj
-
     [lein-wsimport "1.0.0-SNAPSHOT"]
-
 ```
 
 Running this plugin from the command-line is simple enough:
@@ -31,15 +29,12 @@ Running this plugin from the command-line is simple enough:
 WsImport is a task that generates .java and java .class files from a SOAP `wsdl` file, so you need to specify that your project will be using java sources:
 
 ```clj
-
     :java-source-paths [ "target/generated/java" ] ;; by default, WSDL sources are generated here
-
 ```
 
 To get this to do something with your wsdls, you will have to configure in your `project.clj` a `:wsimport` map.  A sample is provided below (with all the options):
 
-```clj
-                
+```clj          
     :wsimport { :wsdl-list [ "Sample.wsdl" "ec2.wsdl" … ]
                 :compile-java-sources true ;; or false (by default)
                 :java-output-directory "target/generated/java" ;; by default
@@ -47,8 +42,7 @@ To get this to do something with your wsdls, you will have to configure in your 
                 :java-package-name "com.corporate.prefix.package"
                 :quiet-output true ;; don't show the entirety of the output from Sun's WsImport task
                 :jaxb-binding-files [ "binding1" "binding2" ]
-                :extra-options ["-extension" "-catalog" ] ;; takes pretty much anything that you'd call from the command-line. call `wsimport` to see what's available
-                
+                :extra-options ["-extension" "-catalog" ] ;; takes pretty much anything that you'd call from the command-line. call `wsimport` to see what's available          
 ```
 
 Then, from the command-line, just call `lein wsimport` to get your sources generated and/or compiled.
@@ -78,6 +72,15 @@ Copyright © 2012 Nick Klauer (klauer@gmail.com)
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
+
+## References:
+
+SOAP is a beast, here's some tips and help:
+
+- [`clj-soap`](https://bitbucket.org/taka2ru/clj-soap) - SOAP framework with Axi2 back-end that is written in Clojure if you don't want to use the Clojure/Java Interop with this plugin
+- [JAX-WS](http://jax-ws.java.net) - Framework for which much of the SOAP/Java interfaces are based off of.  This will probably explain why `wsimport` generates what it does, and how you might be able to use it.
+- [Soapuser.com](http://www.soapuser.com/index.html) - hahaha I just had to link this.  If you don't know what SOAP is, this is probably a good place to read about it, but you can tell it's a bit…dated?
+- 
 
 TODO:
 =====
