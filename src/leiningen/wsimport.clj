@@ -49,7 +49,6 @@
   (let [all-opts (conj @opts wsdl-options)
         f (clojure.java.io/file (all-opts :java-output-directory))]
     (if-not (.exists f)
-      (println "directory doesn't exist; creating")
       (.mkdirs f)))
   (doseq [wsdl wsdl-list]
     (WsImport/doMain 
