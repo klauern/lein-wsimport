@@ -15,7 +15,7 @@
                  ;; :wsdl-file ;; I won't supply defaults, but I know i'll expect some
                  }))
 
-(def default-opts (atom ["-Xnocompile" "-d" "target/generated/java"]))
+;; (def default-opts (atom ["-Xnocompile" "-d" "target/generated/java"]))
 (defn compose-options-array
   "Create an array of options to pass in to WsImport#doMain out of
    a map of settings (usually gathered from the project settings)" 
@@ -67,18 +67,7 @@
 (defn wsimport
   "Generate SOAP Java classes using the JDK's wsimport task"
   ([project]
-    (import-wsdls (-> project :wsimport :wsdl-list) (project :wsimport)))
-  ([project & args]
-    ;; process command-line options... (compile directly?)
-    ;; make the output directory if it doesn't already exist
-    ;; call doMain with options
-    (do
-      (let [f (clojure.java.io/file (:java-output-directory opts))]
-        (if-not (.exists f)
-        (.mkdirs f)))
-      (WsImport/doMain (into-array 
-                         (swap! default-opts
-                                (fn [dopts] (vec (concat dopts args)))))))))
+    (import-wsdls (-> project :wsimport :wsdl-list) (project :wsimport))))
 
 ;; lots of potential options.  I don't see a need for many of them, but I'll probably
 ;; just wrap a couple of them:

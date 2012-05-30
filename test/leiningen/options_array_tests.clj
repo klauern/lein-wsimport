@@ -26,10 +26,3 @@
 
 (fact "about the default options array is"
       (compose-options-array "Sample.wsdl" {}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "Sample.wsdl"])
-
-(facts "about processing command-line options in wsimport task"
-       (process-cmdline-args ["Sample.wsdl"]) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "Sample.wsdl"]
-       (process-cmdline-args ["random" "options" "here"]) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "random" "options" "here"]
-       (process-cmdline-args ["-quiet" "Sample"]) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "-quiet" "Sample"]
-       (process-cmdline-args ["-s" "somewhere_else" "Sample.wsdl"]) => ["-Xnocompile" "-s" "somewhere_else" "-keep" "Sample.wsdl"]
-       (process-cmdline-args ["-d" "another_place"]) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "-d" "another_place"])
