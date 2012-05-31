@@ -1,4 +1,4 @@
-(ns leiningen.wsimporting-tests
+(ns wsimport.project-tests
   (:use [midje.sweet]
         [leiningen.wsimport])
   (:require [leiningen.core.user :as user]

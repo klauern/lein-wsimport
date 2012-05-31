@@ -1,4 +1,4 @@
-(ns leiningen.options-array-tests
+(ns wsimport.options-array-tests
   (:use midje.sweet)
   (:use leiningen.wsimport))
 
