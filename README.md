@@ -11,7 +11,7 @@ I created this because I am new to Clojure and want to learn/contribute at the s
 Currently, this plugin only works against your `project.clj` configuration settings, so if you haven't already, add this to you're `:plugins` vector of your project.clj:
 
 ```clj
-[lein-wsimport "1.0.0-SNAPSHOT"]
+[lein-wsimport "1.0.0"]
 ```
 
 Running this plugin from the command-line is simple enough:
