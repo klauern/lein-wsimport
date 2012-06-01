@@ -11,5 +11,6 @@ pom.xml
 /*.wsdl
 /target
 /docs
+*.swp
 
 .settings/ccw.repl.cmdhistory.prefs
