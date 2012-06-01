@@ -1,5 +1,35 @@
 (ns leiningen.wsimport
-  "Generate Java code from SOAP .wsdls using the JDK's wsimport task"
+  "Generate Java code from SOAP .wsdls using the JDK's wsimport task
+  
+  To use this task, you need to add two pieces to your 'project.clj' file:
+
+  :wsimport {:wsdl-list [ \"src/resources/your_wsdl_file.wsdl\" 
+                          \"http://some.com/remote/wsdl/file.wsdl\" ]]}
+  :java-source-paths [\"target/generated/java\"]
+  
+  There are alot of other options that are provided by the 'wsimport' task to get
+  you through if you find your wsdls require extra options (such as Amazon's
+  need for '-extension' in some wsdls).  They are:
+
+  :wsimport { :wsdl-list [ \"Sample.wsdl\" \"ec2.wsdl\" … ]
+            :compile-java-sources true ;; or false (by default)
+            :java-output-directory \"target/generated/java\" ;; by default
+            :keep-java-sources true ;; by default
+            :java-package-name \"com.corporate.prefix.package\"
+            :quiet-output true ;; don't show Sun's 'wsimport' output
+            :jaxb-binding-files [ \"binding1\" \"binding2\" ]
+            :extra-options [\"-extension\" \"-catalog\" ] ;; catch-all for 
+                                                          ;; any cmd-line opts
+                                                          ;; missed
+          }
+  
+  The catch-all for options is the ':extra-options' vector, which will let you
+  pass in any options that the standard `wsimport` task takes, passing those
+  along.
+
+  For more information on this plugin see the homepage:
+    https://github.com/klauern/lein-wsimport
+  "
   (:require [clojure.java.io :as io]) 
   (:import (com.sun.tools.ws WsImport)))
 
