@@ -1,4 +1,4 @@
-﻿/target
+/target
 lib
 classes
 checkouts
@@ -11,3 +11,5 @@ pom.xml
 /*.wsdl
 /target
 /docs
+
+.settings/ccw.repl.cmdhistory.prefs
