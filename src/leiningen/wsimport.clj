@@ -8,11 +8,15 @@
                  :keep-java-sources true
                  :quiet-output false}))
 
-;; This is the meat of the plugin.  WsImport#doMain only takes two sets of parameters:
+;; This is the meat of the plugin.  `WsImport#doMain` only takes two sets of parameters:
+;;
 ;; - a String for the WSDL URI to import
 ;; - an array of String arguments to pass, configuring the generation strategy.
-;; To see what all of the possible options, as long as you have a JDK installed and
-;; in your path, type `wsimport` and read the verbose output.
+;;
+;; If you have a JDK installed and in your path, type `wsimport` and read the output
+;; to find out what all of the options available are.  Many are handled through
+;; various map options in `:wsimport` on your `project.clj`, but any that aren't
+;; can be passed in through `:extra-options`.
 
 (defn compose-options-array
   "Create an array of options to pass in to WsImport#doMain out of
@@ -58,31 +62,35 @@
 
 To use this task, you need to add two pieces to your 'project.clj' file:
 
-:wsimport {:wsdl-list [ \"src/resources/your_wsdl_file.wsdl\" 
-                        \"http://some.com/remote/wsdl/file.wsdl\" ]]}
-:java-source-paths [\"target/generated/java\"]
+    :wsimport {:wsdl-list [ \"put.wsdl\" \"your.wsdl\" 
+                            \"files.wsdl\" \"here.wsdl\" ]]}
+    ;; can also use URIs like \"http://somewhere.com/remote-wsdl.wsdl\"
+
+    ;; add java paths to compile in your project, too
+    :java-source-paths [\"target/generated/java\"]
 
 There are alot of other options that are provided by the 'wsimport' task to get
 you through if you find your wsdls require extra options (such as Amazon's
 need for '-extension' in some wsdls).  They are:
 
-:wsimport { :wsdl-list [ \"Sample.wsdl\" \"ec2.wsdl\" … ]
-            :compile-java-sources true ;; or false (by default)
-            :java-output-directory \"target/generated/java\" ;; by default
-            :keep-java-sources true ;; by default
-            :java-package-name \"com.corporate.prefix.package\"
-            :quiet-output true ;; don't show Sun's 'wsimport' output
-            :jaxb-binding-files [ \"binding1\" \"binding2\" ]
-            :extra-options [\"-extension\" \"-catalog\" ] ;; catch-all for
-                                                      ;; any cmd-line opts
-                                                      ;; missed
-        }
+    :wsimport { :wsdl-list [ \"Sample.wsdl\" \"ec2.wsdl\" … ]
+                :compile-java-sources true ;; default is false
+                :java-output-directory \"target/generated/java\" ;; default
+                :keep-java-sources true ;; default
+                :java-package-name \"com.corporate.prefix.package\"
+                :quiet-output true ;; don't show Sun's 'wsimport' output
+                :jaxb-binding-files [ \"binding1\" \"binding2\" ]
+                :extra-options [\"-extension\" \"-catalog\" ] ;; catch-all for
+                                                          ;; any cmd-line opts
+                                                          ;; missed
+              }
 
 The catch-all for options is the ':extra-options' vector, which will let you
 pass in any options that the standard `wsimport` task takes, passing those
 along.
 
 For more information on this plugin see the homepage:
-  https://github.com/klauern/lein-wsimport"
+
+https://github.com/klauern/lein-wsimport"
   ([project]
     (import-wsdls (-> project :wsimport :wsdl-list) (project :wsimport))))
