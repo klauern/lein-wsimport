@@ -1,5 +1,5 @@
 (ns leiningen.wsimport
-  "wsimport plugin task definition"
+  "Generate Java code from SOAP .wsdls using the JDK's wsimport task"
   (:require [clojure.java.io :as io]) 
   (:import (com.sun.tools.ws WsImport)))
 
