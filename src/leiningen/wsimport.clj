@@ -32,7 +32,9 @@
     (if (:keep-java-sources all-opts)
       (conj! ws-ary "-keep"))
     (if-let [pkg (:java-package-name all-opts)]
-      (conj! ws-ary "-p" pkg))
+      (do
+        (conj! ws-ary "-p")
+        (conj! ws-ary pkg)))
     (if (:quiet-output all-opts)
       (conj! ws-ary "-quiet"))
     (if-let [xtra-opts (:extra-options all-opts)]

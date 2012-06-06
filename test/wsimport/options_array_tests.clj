@@ -8,6 +8,7 @@
       (compose-options-array "Sample.wsdl" {:quiet-output true}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "-quiet" "Sample.wsdl"]
       (compose-options-array "Sample.wsdl" {:extra-options ["some" "opts" "here"]}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "some" "opts" "here" "Sample.wsdl"]
       (compose-options-array "Sample.wsdl" {:keep-java-sources false}) => ["-Xnocompile" "-s" "target/generated/java" "Sample.wsdl"]
+      (compose-options-array "Sample.wsdl" {:java-package-name "com.package.name"}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "-p" "com.package.name" "Sample.wsdl"]
       )
 
 (facts "about JAXB binding files"
