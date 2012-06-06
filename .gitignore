@@ -12,5 +12,5 @@ pom.xml
 /target
 /docs
 *.swp
-
+bin
 .settings/ccw.repl.cmdhistory.prefs
