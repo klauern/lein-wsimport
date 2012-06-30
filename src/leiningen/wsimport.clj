@@ -3,10 +3,10 @@
   (:require [clojure.java.io :as io]) 
   (:import (com.sun.tools.ws WsImport)))
 
-(def opts (atom {:compile-java-sources false
+(def opts {:compile-java-sources false
                  :java-output-directory "target/generated/java"
                  :keep-java-sources true
-                 :quiet-output false}))
+                 :quiet-output false})
 
 ;; This is the meat of the plugin.  `WsImport#doMain` only takes two sets of parameters:
 ;;
@@ -23,7 +23,7 @@
    a map of settings (usually gathered from the project settings)" 
   [wsdl-file wsimport-opts]
   (let [ws-ary   (transient [])    ;; this feels wrong
-        all-opts (conj @opts wsimport-opts)]   
+        all-opts (conj opts wsimport-opts)]   
     (if-not (:compile-java-sources all-opts) 
       (conj! ws-ary "-Xnocompile"))
     (if-let [out-dir (:java-output-directory all-opts)]
@@ -50,7 +50,7 @@
   "Call WsImport#doMain from Sun's JDK using an array of WSDL's to import
    and a set of user and default-specified options"
   [wsdl-list wsdl-options]
-  (let [all-opts (conj @opts wsdl-options)
+  (let [all-opts (conj opts wsdl-options)
         f (clojure.java.io/file (all-opts :java-output-directory))]
     (if-not (.exists f)
       (.mkdirs f)))

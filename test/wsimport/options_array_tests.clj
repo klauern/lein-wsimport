@@ -17,13 +17,13 @@
        )
 
 (facts "about default options"
-      (@opts :compile-java-sources) => false
-      (@opts :java-output-directory) => "target/generated/java"
-      (@opts :extra-options) => nil
-      (@opts :keep-java-sources) => true
-      (@opts :quiet-output) => false
-      (@opts :java-package-name) => nil
-      (@opts :wsdl-files) => nil)
+      (opts :compile-java-sources) => false
+      (opts :java-output-directory) => "target/generated/java"
+      (opts :extra-options) => nil
+      (opts :keep-java-sources) => true
+      (opts :quiet-output) => false
+      (opts :java-package-name) => nil
+      (opts :wsdl-files) => nil)
 
 (fact "about the default options array is"
       (compose-options-array "Sample.wsdl" {}) => ["-Xnocompile" "-s" "target/generated/java" "-keep" "Sample.wsdl"])
