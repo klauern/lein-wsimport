@@ -4,9 +4,9 @@
   (:import (com.sun.tools.ws WsImport)))
 
 (def opts {:compile-java-sources false
-                 :java-output-directory "target/generated/java"
-                 :keep-java-sources true
-                 :quiet-output false})
+           :java-output-directory "target/generated/java"
+           :keep-java-sources true
+           :quiet-output false})
 
 ;; This is the meat of the plugin.  `WsImport#doMain` only takes two sets of parameters:
 ;;
