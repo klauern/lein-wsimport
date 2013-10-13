@@ -1,10 +1,10 @@
 (defproject lein-wsimport "1.1.0-SNAPSHOT"
   :description "JAX-WS import plugin for Clojure projects"
   :url "https://github.com/klauern/lein-wsimport"
-  :dependencies [[com.sun.xml.ws/jaxws-tools "2.2.7-promoted-b73"]]
-  :profiles { :dev { :dependencies [[midje "1.4.0"]]}}
-  :plugins [[lein-midje "2.0.0-SNAPSHOT"]
-            [lein-clojars "0.9.0"]]
+  :dependencies [[com.sun.xml.ws/jaxws-tools "2.2.8"]]
+  :profiles { :dev { :dependencies [[midje "1.6-beta1"]]}}
+  :plugins [[lein-midje "3.1.2"]
+            [lein-clojars "0.9.1"]]
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :eval-in-leiningen true)

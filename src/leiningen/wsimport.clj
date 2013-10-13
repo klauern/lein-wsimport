@@ -38,7 +38,7 @@
     (if (:quiet-output all-opts)
       (conj! ws-ary "-quiet"))
     (if-let [xtra-opts (:extra-options all-opts)]
-       (reduce conj! ws-ary xtra-opts))
+      (reduce conj! ws-ary xtra-opts))
     (if-let [jaxb-binding-files (:jaxb-binding-files all-opts)]
       (doseq [jbinding jaxb-binding-files]  ;; seems kind of ugly, not sure this is a great solution
         (conj! ws-ary "-b")
@@ -56,8 +56,8 @@
       (.mkdirs f)))
   (doseq [wsdl wsdl-list]
     (WsImport/doMain 
-           (into-array 
-             (compose-options-array wsdl wsdl-options)))))
+      (into-array 
+        (compose-options-array wsdl wsdl-options)))))
 
 (defn wsimport
   "Generate Java code from SOAP .wsdls using the JDK's wsimport task
@@ -95,4 +95,4 @@ For more information on this plugin see the homepage:
 
 https://github.com/klauern/lein-wsimport"
   ([project]
-    (import-wsdls (-> project :wsimport :wsdl-list) (project :wsimport))))
+   (import-wsdls (-> project :wsimport :wsdl-list) (project :wsimport))))
