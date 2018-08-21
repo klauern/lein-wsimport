@@ -1,4 +1,6 @@
 # lein-wsimport
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fklauern%2Flein-wsimport.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fklauern%2Flein-wsimport?ref=badge_shield)
+
 
 A Leiningen plugin to utilize the JDK's [`wsimport`](http://docs.oracle.com/javase/6/docs/technotes/tools/share/wsimport.html) task from a Leiningen project.
 
@@ -68,6 +70,9 @@ Copyright © 2012 Nick Klauer (klauer@gmail.com)
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fklauern%2Flein-wsimport.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fklauern%2Flein-wsimport?ref=badge_large)
 
 ## References:
 
